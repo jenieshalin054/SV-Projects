@@ -1,0 +1,16 @@
+  class ha_gen;
+    mailbox gen2drv;
+
+    function new(mailbox gen2drv);
+      this.gen2drv = gen2drv;
+    endfunction
+
+    task run();
+      ha_trans tx;
+      repeat (50) begin
+        tx = new();
+        assert(tx.randomize());
+        gen2drv.put(tx);
+      end
+    endtask
+  endclass
